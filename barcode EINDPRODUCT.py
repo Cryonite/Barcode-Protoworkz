@@ -1,10 +1,14 @@
+# Voor de GUI
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+# Tijd op te halen
 from datetime import datetime
+# Excel gezeik
 import openpyxl
 from openpyxl import Workbook
 import pathlib
+# Voor de wait
 import time
 
 # Template voor data.txt:
@@ -120,6 +124,7 @@ def onClickBarcode():
                 print(current_time, barcodenummer.strip(), 'toegevoegd aan', file.name, 'toegevoegd door:', clickedNaam.get(), 'Product is Goedgekeurd', ', Stap:', clicked.get())
                 myLabelSuccesvol = Label(root, text='Barcode succesvol in bestand gezet.')
                 myLabelSuccesvol.grid(row=1, column=11, sticky=N)
+                #destroyed na 3000ms de label
                 root.after(3000, lambda: myLabelSuccesvol.destroy())
                 # delete de tekst vlakken als het is toegevoegd
                 e.delete(0, 'end')
@@ -158,6 +163,7 @@ def onClickBarcode():
                     print(current_time, barcodenummer.strip(), 'toegevoegd aan', file.name, 'toegevoegd door:', clickedNaam.get(), 'Product is Afgekeurd met de reden:', e.get(), ', Stap: ', clicked.get())
                     myLabelSuccesvol = Label(root, text='Barcode succesvol in bestand gezet.')
                     myLabelSuccesvol.grid(row=1, column=11, sticky=N)
+                    #destroyed na 3000ms de label
                     root.after(3000, lambda: myLabelSuccesvol.destroy())
                 elif clicked.get() == '-':
                     print('Selecteer de productie stap!')
@@ -262,14 +268,22 @@ def onClickZoeken():
             file_read.close()
         
             if len(new_list)==0:
+                # myLabelNietgevonden = Label(root, text="\n\"" +text+ "\" is niet gevonden in \"" +file_name+ "\"!")
+                # myLabelNietgevonden.grid(row=5, column=1)
                 print("\n\"" +text+ "\" is niet gevonden in \"" +file_name+ "\"!")
+                # root.after(10000, lambda: myLabelNietgevonden.destroy())
             else:
         
                 lineLen = len(new_list)
+                # myLabelGevonden = Label(root, text="\n**** Lines die \"" +text+ "\" bevatten ****\n")
+                # myLabelGevonden.grid(row=7, column=11)
                 print("\n**** Lines die \"" +text+ "\" bevatten ****\n")
+                # root.after(10000, lambda: myLabelGevonden.destroy())
                 for i in range(lineLen):
                     print(end=new_list[i])
-                print()
+                    # myLabelGevonden = Label(root, text=new_list[i])
+                    # myLabelGevonden.grid(row=7, column=1)
+                    # root.after(10000, lambda: myLabelGevonden.destroy())
         
         except:
             print("\nBestand bestaat niet!")
